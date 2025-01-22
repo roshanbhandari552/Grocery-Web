@@ -1,0 +1,68 @@
+create table Customers_325(
+	CUSTOMERID int Primary Key,
+	FIRSTNAME varchar(100)
+	LASTNAME varchar(100)
+);
+
+insert into Customers_325
+values(1,'Sara','Davis');
+insert into Customers_325
+values(2,'Rumi','Shah');
+insert into Customers_325
+values(3,'Paul','Johnson');
+insert into Customers_325
+values(4,'Samuel','Martinez');
+insert into Customers_325
+values(5,'Santosh','Acharya');
+
+Create table Orders_325(
+	ORDERID int Primary Key,
+	CUSTOMERID int,
+	ORDERDATE date,
+	ORDERAMOUNT float,
+	Foreign key (CUSTOMERID) REFERENCES Customers_325(CUSTOMERID)
+);
+
+
+insert into Orders_325(oderid,customerid,orderdate,orderamount)
+values(1,1,to_date('01-Sep-16'),10);
+insert into Orders_325(oderid,customerid,orderdate,orderamount)
+values(2,2,to_date('02-Sep-16'),12.5);
+insert into Orders_325(oderid,customerid,orderdate,orderamount)
+values(3,2,to_date('03-Sep-16'),18);
+insert into Orders_325(oderid,customerid,orderdate,orderamount)
+values(4,3,to_date('15-Sep-16'),20);
+insert into Orders_325(oderid,customerid,orderdate,orderamount)
+values(5,4,to_date('21-Nov-20'),20);
+
+create table Refunds_325(
+	REFUNDID int Primary Key,
+	ORDERID int,
+	REFUNDDATE date,
+	REFUNDAMOUNT int,
+	Foreign key(ORDERID) REFERENCES Orders_325(ORDERID)
+);
+
+insert into Refunds_325(refundid, orderid, refunddate, refundamount)
+values(1,1,to_date('02-Sep-16'),5);
+
+insert into Refunds_325(refundid, orderid, refunddate, refundamount)
+values(2,3,to_date('18-Sep-16'),18);
+
+
+select * from Customers_325 c inner join orders_325 o 
+ON c.customerid = o.orderid;
+
+select firstname, lastname, orderdate, orderamount, refunddate,
+ refundamount from customers_325 c
+inner join orders_325 o ON c.customerid = o.customerid
+inner join refunds_325 r ON o.orderid = r.orderid;
+
+select firstname, lastname, orderdate, orderamount, refunddate,
+ refundamount from customers_325 c
+LEFT JOIN orders_325 o ON c.customerid = o.customerid
+LEFT JOIN refunds_325 r ON o.orderid = r.refundid;
+
+drop table customers_325;
+drop table orders_325;
+drop table refunds_325;

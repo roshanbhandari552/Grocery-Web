@@ -1,0 +1,21 @@
+
+CREATE TABLE Student_C0930325(
+    Student_Id varchar(10) ,
+    FirstName varchar(50),
+    LastName varchar(100),
+    Telephone_Number varchar(10),
+    Age integer,
+    City varchar(50)
+);
+
+CREATE TABLE Student_C0930325(
+    Student_Id varchar(10) Primary Key,
+    FirstName varchar(50),
+    LastName varchar(100),
+    Telephone_Number varchar(10),
+    Age integer,
+    City varchar(50)
+);
+
+INSERT INTO Student_C0930325
+values(1,'Santosh','Acharya','4379551559',25,'Mississauga');

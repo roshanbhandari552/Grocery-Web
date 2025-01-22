@@ -1,0 +1,292 @@
+Create table Room_325(
+    Room_Number int Primary Key,
+    Room_type varchar(25),
+    Maximum_ocupancy varchar(50),
+    Room_rate float,
+    Bed_type varchar(50)
+);
+CREATE TABLE Customer_325(
+    Customer_id int Primary Key,
+    Customer_Name varchar(100),
+    Customer_Number int Not Null,
+    email_address varchar(100),
+    booking_history varchar(10),
+    Nationality varchar(50),
+    Membership_status varchar(10),
+    Payment_id int,
+    Foreign key (Payment_id) REFERENCES Payment_method_325(Payment_id)
+);
+
+CREATE TABLE Payment_method_325(
+    Payment_id int Primary Key,
+    Payment_type varchar(50),
+    Payment_status varchar(50) Not Null,
+    Payment_date date,
+    Card_details varchar(50)
+);
+insert into Room_325
+values(101,'Single Room','5',50,'Single Bed');
+insert into Room_325
+values(102,'Double Room','2',50,'Double Bed');
+insert into Room_325
+values(103,'Suite','5',50,'Queen');
+insert into Room_325
+values(104, 'Deluxe Room', '6',100, 'King');
+insert into Room_325
+values(105, 'Quad room', '4',150 ,'Large King');
+insert into Room_325
+values(106, 'Triple room', '3', 65, 'Queen');
+insert into Room_325
+values(107,'Penthouse suites','5',55,'King');
+insert into Room_325
+values(108,'Junior Suites', '4',35,'Double Bed');
+insert into Room_325
+values(109,'Connecting rooms', '3',45, 'King');
+
+select Room_Number as Santosh_Room_Number_0930325, Room_type, Maximum_ocupancy, Room_rate, Bed_type from Room_325;
+
+select Room_Number as Santosh_Room_Number_0930325, Maximum_ocupancy, Room_rate from Room_325 where room_rate > 40;
+
+
+insert into Payment_method_325
+values(1, 'Interact','Full Payment','2023-11-31',null);
+insert into Payment_method_325
+values(2, 'Debit Card','No Payment','2023-12-31','RBC');
+insert into Payment_method_325
+values(3, 'Credit Card','Partial Payment','2024-01-23','CBIC');
+insert into Payment_method_325
+values(4, 'Google pay','No Payment','2024-03-15',null);
+insert into Payment_method_325
+values(5, 'Bank Transfer','Partial Payment','2024-01-23','TD');
+
+insert into Customer_325
+values(201,'Santosh Acharya',4379551559,'acharyaanish16@gmail.com',null,'Nepali','Full Member',1);
+insert into Customer_325
+values(202,'Anish Thapa',5365962458,'aanishthapa@gmail.com','2','Canadian','Expired',2);
+insert into Customer_325
+values(203,'Bhim Kumari Lamsal',5584166465,'bhimkumarilamsal5@gmail.com',null,'Nepali',null,3);
+insert into Customer_325
+values(204,'Roshan Acharya',4372415609,'roshanacharya050@gmail.com','5','American','Full Member',4);
+insert into Customer_325
+values(205,'David Becham',7589351234,'davidbecham5@gmail.com',null,'British','Full Member',5);
+
+select Customer_id as Customer_id_325, SUBSTR(Customer_Name, 1, INSTR(Customer_Name, ' ') - 1) AS First_Name,
+    SUBSTR(Customer_Name, INSTR(Customer_Name, ' ') + 1) AS Last_Name, customer_number from Customer_325;
+
+SELECT Room_Number as Room_Number_325, Room_rate, Room_rate * 0.5 AS discount FROM Room_325;
+
+
+SELECT Room_Number as Room_Number_325, Room_type || ' - ' || Bed_type AS Room_Details_325 FROM Room_325;
+
+
+SELECT DISTINCT membership_status as Membership_status_325 FROM Customer_325;
+
+SELECT Room_Number as Room_Number_325,Room_type,Room_rate FROM Room_325 WHERE (Maximum_ocupancy > 4 OR Room_rate < 60);
+
+
+
+SELECT Room_Number as Room_Number_325, Room_type, Maximum_ocupancy, Room_rate, Bed_type FROM Room_325 ORDER BY Room_rate DESC;
+
+
+SELECT AVG(Room_rate) AS Avg_Room_Rate_325 FROM Room_325;
+
+
+SELECT  MIN(Room_rate) AS Min_Room_Rate_325 FROM Room_325;
+
+SELECT COUNT(DISTINCT Nationality) AS Nationality_325 FROM Customer_325;
+
+SELECT Payment_id as Payment_id_325, payment_type, payment_status, payment_date, card_details FROM Payment_method_325 
+WHERE Payment_type = 'Credit Card' 
+AND Payment_status = 'Partial Payment';
+
+SELECT UPPER(Customer_Name) AS Cusotmer_Name_325, Nationality,customer_number FROM Customer_325;
+
+SELECT Payment_id, Payment_status, TO_DATE(Payment_date, 'YYYY-MM-DD') AS payment_date_325 FROM Payment_method_325;
+
+SELECT CEIL(Room_rate) AS Room_Rate_325, Room_type, bed_type FROM Room_325;
+
+SELECT Nationality as Nationality_325, COUNT(*) AS Total_Customers_325 FROM Customer_325 GROUP BY Nationality HAVING COUNT(*) > 0;
+SELECT c.Customer_id as Customer_id_325 , c.Customer_Name, p.Payment_type
+FROM Customer_325 c
+INNER JOIN Payment_method_325 p ON c.Payment_id = p.Payment_id;
+
+
+SELECT c.Customer_id as  Customer_id_325, c.Customer_Name,c.Customer_Number, p.Payment_type
+FROM Customer_325 c
+LEFT OUTER JOIN Payment_method_325 p ON c.Payment_id = p.Payment_id;
+
+SELECT *
+FROM Customer_325 c
+WHERE EXISTS (SELECT * FROM Payment_method_325 p WHERE p.Payment_id = c.Payment_id);
+
+
+SELECT Customer_id as Customer_id_325, Customer_Name FROM Customer_325
+UNION
+SELECT Payment_id, Payment_type FROM Payment_method_325;
+
+
+
+SELECT Customer_id as Customer_id_325, Customer_Name FROM Customer_325
+MINUS
+SELECT Payment_id, Payment_type FROM Payment_method_325;
+
+SELECT Room_Number as Room_Number_0930325, Room_rate, Room_type, maximum_ocupancy, bed_type
+FROM Room_325
+WHERE Room_rate BETWEEN 50 AND 100;
+
+SELECT  Customer_id AS Customer_id_0930325, Customer_Name, Customer_Number, email_address, booking_history, Nationality, Membership_status, Payment_id
+FROM Customer_325
+WHERE Nationality IN ('American', 'British', 'Canadian');
+
+
+SELECT Customer_id AS Customer_id_0930325, Customer_Name, Customer_Number, Nationality, Membership_status, Payment_id
+FROM Customer_325
+WHERE Customer_Name LIKE '%Sa%';
+
+SELECT Room_Number as Room_Number_0930325, Room_type, Room_rate, maximum_ocupancy,bed_type
+FROM Room_325
+WHERE Room_type = 'Single Room';
+
+
+SELECT Room_Number as Room_Number_0930325, Room_type, Room_rate, maximum_ocupancy,bed_type
+FROM Room_325
+WHERE Room_rate != 50;
+
+create table inventory_325(
+	inventory_id int Primary key,
+	inventory_name varchar(100),
+	inventory_rate float,
+	inventory_quantity int,
+	inventory_description varchar(100),
+	Purchase_date date
+	
+);
+INSERT INTO inventory_325
+VALUES (1, 'Bath Towels', 12.99, 50, 'White cotton bath towels for guest rooms', '2024-04-07');
+
+INSERT INTO inventory_325
+VALUES (2, 'Bed Linens', 24.99, 100, 'Luxurious cotton bed linens for all bed sizes', '2024-04-07');
+
+INSERT INTO inventory_325
+VALUES (3, 'Toiletries Kit', 6.99, 200, 'Travel-sized shampoo, conditioner, and soap', '2024-04-07');
+
+INSERT INTO inventory_325 
+VALUES (4, 'Coffee Maker', 39.99, 15, 'Drip coffee maker with complimentary coffee pods', '2024-04-07');
+
+INSERT INTO inventory_325 
+VALUES (5, 'Iron and Ironing Board', 29.99, 20, 'Steam iron and ironing board for guest use', '2024-04-07');
+
+INSERT INTO inventory_325 
+VALUES (6, 'Hair Dryer', 19.99, 30, 'Professional-grade hair dryer with multiple heat settings', '2024-04-07');
+
+INSERT INTO inventory_325 
+VALUES (7, 'Room Safe', 49.99, 10, 'Electronic safe for securing valuables', '2024-04-07');
+
+SELECT inventory_rate * inventory_quantity AS total_price_325 FROM inventory_325;
+
+
+create table Supplier_325(
+	Supplier_id int Primary Key,
+	Product_type varchar(100),
+	Supplier_address varchar(100),
+	Supplier_contact varchar(10)
+);
+INSERT INTO Supplier_325
+VALUES(1, 'Electronics', '123 Main St, City A', '1234567');
+INSERT INTO Supplier_325
+VALUES(2, 'Clothing', '456 Elm St, City B', '9876543');
+INSERT INTO Supplier_325
+VALUES(3, 'Books', '789 Oak St, City C', '5554321');
+INSERT INTO Supplier_325
+VALUES(4, 'Furniture', '321 Pine St, City D', '1112222');
+INSERT INTO Supplier_325
+VALUES(5, 'Groceries', '555 Maple St, City E', '3334444');
+INSERT INTO Supplier_325
+VALUES(6, 'Electronics', '777 Cedar St, City F', '8889999');
+INSERT INTO Supplier_325
+ VALUES(7, 'Clothing', '999 Walnut St, City G', '7771111');
+
+SELECT Supplier_id as Supplier_id_0930325, product_type, supplier_address, supplier_contact,Inventory_id , Inventory_rate,Inventory_quantity, purchase_date
+FROM Supplier_325
+RIGHT OUTER JOIN inventory_325 ON Supplier_325.Supplier_id = inventory_325.inventory_id;
+
+
+
+SELECT c.customer_id as Customer_id_0930325, c.customer_name, c.customer_number, c.nationality, p.payment_id,p.payment_status
+FROM Customer_325 c
+CROSS JOIN Payment_method_325 p;
+
+
+
+SELECT t1.inventory_id as inventory_id_0930325, t1.inventory_name,t1.inventory_rate,t1.inventory_quantity,t2.inventory_id,
+t2.inventory_rate,t2.inventory_quantity
+FROM inventory_325 t1, inventory_325 t2
+WHERE t1.inventory_id = t2.inventory_id;
+
+
+SELECT inventory_id as inventory_id_0930325, inventory_name, inventory_quantity,purchase_date 
+FROM inventory_325 
+WHERE inventory_quantity > (
+    SELECT avg(inventory_rate)
+    FROM inventory_325
+    WHERE inventory_name is not null
+);
+
+SELECT ROUND(inventory_rate, 2)as Inventory_rate_0930325 FROM inventory_325;
+
+SELECT inventory_id as inventory_id_0930325, inventory_rate, COALESCE(inventory_description, 'No description available') FROM inventory_325;
+
+
+
+select * from inventory_325;
+
+SELECT inventory_id as inventory_id_0930325, inventory_name, inventory_rate,inventory_quantity,Purchase_date
+FROM inventory_325 i
+WHERE NOT EXISTS (
+    SELECT *
+    FROM Supplier_325 s
+    WHERE s.Product_type = 'Bath Towels'
+    AND s.Supplier_id = i.inventory_id
+);
+
+////ADVANCE query
+SELECT inventory_id as inventory_id_0930325, inventory_name, inventory_rate
+FROM inventory_325
+WHERE inventory_id IN (
+    SELECT inventory_id
+    FROM Supplier_325
+    WHERE Product_type = 'Furniture'
+);
+
+SELECT c.Customer_Name as Customer_Name_0930325, p.Payment_type
+FROM Customer_325 c
+JOIN Payment_method_325 p ON c.Payment_id = p.Payment_id
+WHERE c.Customer_id IN (
+    SELECT Customer_id
+    FROM Room_325
+    WHERE Room_type = 'Suite'
+);
+
+SELECT inventory_name as inventory_name_0930325,
+       inventory_quantity,
+       (SELECT AVG(inventory_quantity) 
+        FROM inventory_325 i2 
+        WHERE i1.inventory_name = i2.inventory_name) AS avg_quantity
+FROM inventory_325 i1;
+
+SELECT inventory_name as inventory_name_0930325,
+       inventory_quantity,
+       (SELECT MAX(Room_rate) 
+        FROM Room_325) AS max_room_rate
+FROM inventory_325;
+
+
+
+SELECT Customer_id as Customer_id_0930325, customer_name, customer_number,membership_status,payment_id
+FROM Customer_325 c
+WHERE EXISTS (
+    SELECT 1
+    FROM Payment_method_325 p
+    WHERE c.Payment_id = p.Payment_id
+    AND p.Payment_status = 'Full'
+);
